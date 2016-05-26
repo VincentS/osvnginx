@@ -1,0 +1,47 @@
+From d9811bf645de516d77c4e2b64f3338fa95bc3e0a Mon Sep 17 00:00:00 2001
+From: Vincent Schwarzer <vincent.schwarzer@yahoo.de>
+Date: Thu, 7 Jan 2016 11:20:24 +0100
+Subject: [PATCH] [PATCH] auto/endianness: Add mechanism allowing to force
+ endinannes test result
+
+The ngx_force_have_little_endian can be set to the desired test result when configure is run and
+therefore the test skipped.
+
+Added to simplify cross-compile support extending the work of Samuel Martins <s.martin49@gmail.com>
+great NGINX patches for the Buildroot project at https://git.busybox.net/buildroot/tree/package/nginx.
+---
+ auto/endianness | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+diff --git a/auto/endianness b/auto/endianness
+index 70b0a10..7527be3 100644
+--- a/auto/endianness
++++ b/auto/endianness
+@@ -32,11 +32,19 @@ ngx_test="$CC $CC_TEST_FLAGS $CC_AUX_FLAGS \
+ eval "$ngx_test >> $NGX_AUTOCONF_ERR 2>&1"
+ 
+ if [ -x $NGX_AUTOTEST ]; then
+-    if $NGX_AUTOTEST >/dev/null 2>&1; then
+-        echo " little endian"
+-        have=NGX_HAVE_LITTLE_ENDIAN . auto/have
+-    else
+-        echo " big endian"
++    
++    if test -n "$ngx_force_have_little_endian" ; then
++        echo "not tested (maybe cross-compiling)"
++        if test "$ngx_force_have_little_endian" = "yes" ; then
++	   have=NGX_LITTLE_ENDIAN . auto/have
++        fi
++    else  
++        if $NGX_AUTOTEST >/dev/null 2>&1; then
++            echo " little endian"
++            have=NGX_HAVE_LITTLE_ENDIAN . auto/have
++        else
++            echo " big endian" 
++        fi
+     fi
+ 
+     rm -rf $NGX_AUTOTEST*
+-- 
+1.9.1
+

@@ -1,0 +1,20 @@
+commit aac47348bc9f9230508d0abf03aaf01854530809
+Author: Vincent Schwarzer <vincent.schwarzer@yahoo.de>
+Date:   Mon Apr 4 10:14:43 2016 +0200
+
+    Patch for setproctitle
+
+diff --git a/auto/unix b/auto/unix
+index 6e54531..4c99764 100755
+--- a/auto/unix
++++ b/auto/unix
+@@ -556,7 +556,8 @@ fi
+ 
+ ngx_feature="setproctitle()"
+ ngx_feature_name="NGX_HAVE_SETPROCTITLE"
+-ngx_feature_run=no
++ngx_feature_run=yes
++ngx_feature_run_force_result="$ngx_force_have_setproctitle"
+ ngx_feature_incs="#include <stdlib.h>"
+ ngx_feature_path=
+ ngx_feature_libs=$NGX_SETPROCTITLE_LIB

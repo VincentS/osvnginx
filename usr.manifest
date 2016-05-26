@@ -1,0 +1,21 @@
+#Copyright (C) 2013-2014 Cloudius Systems, Ltd.
+#
+# This work is open source software, licensed under the terms of the
+# BSD license as described in the LICENSE file in the top-level directory.
+#
+
+[manifest]
+/nginx/conf/**: ${MODULE_DIR}/data/conf/**
+/nginx/www/**: ${MODULE_DIR}/data/www/**
+/nginx/nginx: ${MODULE_DIR}/build/objs/nginx
+
+/usr/lib/&/libcrypto.so.1.0.0: /lib/x86_64-linux-gnu/&
+/usr/lib/&/libssl.so.1.0.0: /lib/x86_64-linux-gnu/&
+
+#PCRE
+#/usr/lib/&/libpcre.so.1: /usr/local/lib/&
+#/usr/lib/&/libpcre.so: /usr/local/lib/&
+#/usr/lib/&/libpcre.so.1.2.6: /usr/local/lib/&
+#/usr/lib/&/libpcreposix.so.0: /usr/local/lib/&
+#/usr/lib/&/libpcreposix.so: /usr/local/lib/&
+#/usr/lib/&/libpcreposix.so.0.0.3: /usr/local/lib/&
